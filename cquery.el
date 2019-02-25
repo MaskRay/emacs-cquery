@@ -214,7 +214,7 @@ The place is given by cquery-cache-dir-consolidated-path."
 ;; ---------------------------------------------------------------------
 
 ; TODO: prog reports for modeline
-(defun cquery--get-init-params ()
+(cl-defmethod lsp-initialization-options ((_server (eql cquery)))
   `(,@cquery-extra-init-params
     :cacheDirectory ,(file-name-as-directory
                       (funcall cquery-cache-dir-function (lsp--suggest-project-root)))
@@ -239,7 +239,6 @@ The place is given by cquery-cache-dir-consolidated-path."
    ("$cquery/progress" #'ignore)
    ("$cquery/setInactiveRegions" #'cquery--set-inactive-regions)
    ("$cquery/publishSemanticHighlighting" #'cquery--publish-semantic-highlighting))
-  :initialization-options #'cquery--get-init-params
   :library-folders-fn nil))
 
 (provide 'cquery)
